@@ -1,0 +1,64 @@
+ <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? 'home'
+                  : 'home-outline';
+              } else if (route.name === 'Settings') {
+                iconName = focused ? 'ios-list-sharp' : 'ios-list';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'ios-person-circle' : 'ios-person-circle-outline';
+              }
+              <Ionicons name="" size={24} color="black" />
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+          }}>
+
+
+
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Settings" component={SettingScreen} />
+        </Tab.Navigator>
+
+        =============================================
+
+        const StackNavigator = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      title: 'First Contact'
+    }
+  },
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Dashboard',
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="leftcircleo" size={30} color="#5A5A5A" style={{ paddingLeft: 10 }} />
+ 
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity >
+          <Ionicons name="ios-notifications-outline" size={30} color="#5A5A5A" style={{ paddingRight: 10 }} />
+        </TouchableOpacity>
+      )
+    })
+  }
+
+});
+
+ 
+const TabNavigator = createBottomTabNavigator({
+  Home: StackNavigator,
+  Profile: ProfileScreen,
+  Settings: SettingScreen
+});
